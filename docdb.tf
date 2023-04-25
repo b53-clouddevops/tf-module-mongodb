@@ -20,6 +20,10 @@ resource "aws_docdb_subnet_group" "docdb_subnet_group" {
   }
 }
 
-output "output_ref" {
-  value = data.terraform_remote_state.vpc
+# Creates Instances Needed for the DocDB Cluster
+resource "aws_docdb_cluster_instance" "cluster_instances" {
+  count              = 1
+  identifier         = "robot-${var.ENV}-docdb-instance"
+  cluster_identifier = aws_docdb_cluster.docdb.id
+  instance_class     = "db.t3.medium"
 }
