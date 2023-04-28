@@ -1,10 +1,8 @@
 resource "aws_docdb_cluster" "docdb" {
   cluster_identifier      = "robot-${var.ENV}-docdb"
   engine                  = "docdb"
-  master_username         = jsondecode(data.aws_secretsmanager_secret_version.secrets.secret_string)["DOCDB_USERNAME"]
-  master_password         = jsondecode(data.aws_secretsmanager_secret_version.secrets.secret_string)["DOCDB_PASSWORD"]
-  # backup_retention_period = 5                      // Commenting this as in lab, we won't need backups
-  # preferred_backup_window = "07:00-09:00"
+  master_username         = local.DOCDB_USER
+  master_password         = local.DOCDB_PASS
   skip_final_snapshot     = true
   db_subnet_group_name    = aws_docdb_subnet_group.docdb_subnet_group.name
   vpc_security_group_ids  = [aws_security_group.allow_mongodb.id]
