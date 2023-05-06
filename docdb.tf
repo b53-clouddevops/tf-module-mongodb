@@ -25,4 +25,7 @@ resource "aws_docdb_cluster_instance" "cluster_instances" {
   identifier         = "robot-${var.ENV}-docdb-instance"
   cluster_identifier = aws_docdb_cluster.docdb.id
   instance_class     = var.DOCDB_INSTANCE_CLASS
+    depends_on = [
+      aws_docdb_cluster.docdb
+    ]
 }
