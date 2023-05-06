@@ -8,7 +8,6 @@ resource "aws_docdb_cluster" "docdb" {
   vpc_security_group_ids  = [aws_security_group.allow_mongodb.id]
 }
 
-
 # Creates Subnet Group Needed to host the docdb cluster 
 resource "aws_docdb_subnet_group" "docdb_subnet_group" {
   name       = "robot-${var.ENV}-docdb-subnet-group"
